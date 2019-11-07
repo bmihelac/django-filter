@@ -366,6 +366,13 @@ class ChoiceFilterTests(TestCase):
             self.fail('choices should not be called during initialization')
         ChoiceFilter(choices=choices)
 
+    def test_callable_choices_len(self):
+        def choices():
+            yield ('a', 'a')
+
+        f = ChoiceFilter(choices=choices)
+        self.assertEqual(len(f.field.choices), 1)
+
 
 class MultipleChoiceFilterTests(TestCase):
 
